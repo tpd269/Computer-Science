@@ -1,0 +1,159 @@
+# List comprehension
+def squares_list1(n):
+    return [i*i for i in range(1, n+1)]
+# print(squares_list1(5))  # [1, 4, 9, 16, 25]
+
+
+def find_tens(n):
+    return [10*i for i in range(1, n+1)]
+# print(find_tens(5))  # [10, 20, 30, 40, 50]
+
+
+def factors(n):
+    return [i for i in range(1, n+1) if n % i == 0]
+# print(factors(100))  # [1, 2, 4, 5, 10, 20, 25, 50, 100]
+
+
+def ascii_value():
+    return [ord(character) for character in "test"]  # Show value of the word "test"
+# print(ascii_value())  # [116, 101, 115, 116]
+
+
+def binary_search(data, target, low, high):  # Binary Search
+    if low > high:  # low can't be > than high
+        return False
+    else:  # low < high
+        mid = (high + low) // 2
+
+        if target == data[mid]:
+            return True
+        elif target < data[mid]:  # Portion left of the middle
+            return binary_search(data, target, low, mid - 1)
+        else:  # Portion right of the middle
+            return binary_search(data, target, mid + 1, high)
+
+# Disk Usage
+import os
+
+
+def disk_usage(path):  # Return the number of bytes used by a file/folder and any descendents
+    total = os.path.getsize(path)  # Direct usage
+    if os.path.isdir(path):  # If it's a directory
+        for filename in os.listdir(path):
+            childpath = os.path.join(path, filename)  # Compose full path to child
+            total += disk_usage(path)  # Add child's usage to total
+
+    print("{0:<7}".format(total), path)  # Descriptive output
+    return total
+
+
+def sort_search(lst, val):  # Sort search
+    left = 0
+    right = len(lst) - 1
+    ind = None
+    found = False
+    while found == False and left <= right:
+        mid = (left + right) // 2
+        if lst[mid] == val:
+            ind = mid
+            found = True
+        elif val < lst[mid]:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return ind
+# print(search([5,7,8,8,10,12], 8))
+
+
+def linear_search(lst, val):  # Linear search
+    for i in range(len(lst)):
+        if lst[i] == val:
+            return i
+    return None
+# lst = [5, 7, 8, 8, 10, 12]
+# print(linear_search(lst, 8))
+
+
+def prefix_average2(lst):
+    n = len(lst)
+    res = [0]*n
+    curr_sum = 0
+    for j in range(n):
+        curr_sum += lst[j]
+        curr_avg = curr_sum / (j+1)
+        res[j] = curr_avg
+    return res
+# print(prefix_average2([1, 2, 3, 4, 5]))
+
+# Count Up
+
+
+def count_up1(start, end):
+    if start == end:
+        print(end)
+    else:
+        print(start)
+        count_up1(start + 1, end)
+# count_up1(1, 10)
+
+
+def count_up2(start, end):
+    if start == end:
+        print(end)
+    else:
+        count_up2(start, end - 1)
+        print(end)
+# count_up2(1, 10)
+
+
+def count_down(start, end):  # Count Down
+    if start == end:
+        print(end)
+    else:
+        print(end)
+        count_down(start, end-1)
+# print(count_down(1, 10))
+
+
+def count_up_down(start, end):  # Count Up & Down
+    if start == end:
+        print(end)
+    else:
+        print(start)
+        count_up_down(start + 1, end)
+        print(start)
+# print(count_up_down(1, 20))
+
+
+def factorial(n):
+    if n == 0:  # 0! = 1
+        return 1
+    else:
+        fact = factorial(n-1)
+        return n * fact
+# print(factorial(3))
+
+# Count a val to see how many it appears
+
+
+def count_appearances1(lst, val):
+    if len(lst) == 0:
+        return 0
+    else:
+        count_rest = count_appearances1(lst[1:], val)
+        if lst[0] == val:
+            return count_rest + 1
+        else:
+            return count_rest
+# lst = [1, 2, 3, 4, 5, 5, 5]
+# print(count_appearances1(lst, 5))
+
+
+def power(x, n):
+    if n == 1:
+        return x
+    else:
+        rest = power(x, n-1)
+        return x*rest
+# print(power(3,4))
+
